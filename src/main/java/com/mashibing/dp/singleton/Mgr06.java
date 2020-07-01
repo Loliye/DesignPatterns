@@ -7,6 +7,7 @@ package com.mashibing.dp.singleton;
  * 可以通过synchronized解决，但也带来效率下降
  */
 public class Mgr06 {
+    //volatile带有读写屏障  保障指令不会乱序
     private static volatile Mgr06 INSTANCE; //JIT
 
     private Mgr06() {
@@ -16,6 +17,7 @@ public class Mgr06 {
         if (INSTANCE == null) {
             //双重检查
             synchronized (Mgr06.class) {
+                //防止  java指令重排
                 if(INSTANCE == null) {
                     try {
                         Thread.sleep(1);
